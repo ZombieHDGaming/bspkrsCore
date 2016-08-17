@@ -28,7 +28,7 @@ public class Reference
     }
     public static final String  MODID        = "bspkrsCore";
     public static final String  NAME         = "bspkrsCore";
-    public static final String  MC_VERSION;
+    private static final String  MC_VERSION;
     public static final String  MINECRAFT    = "minecraft";
     public static final String  PROXY_COMMON = "bspkrs.bspkrscore.fml.CommonProxy";
     public static final String  PROXY_CLIENT = "bspkrs.bspkrscore.fml.ClientProxy";

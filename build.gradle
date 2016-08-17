@@ -27,7 +27,7 @@ version = project.mod_version
 archivesBaseName = "[${project.minecraft_version}]${project.mod_id}"
 
 minecraft {
-    version = project.minecraft_version + '-' + project.forge_version //+ "-" + project.minecraft_version // grab latest forge
+    version = project.minecraft_version + '-' + project.forge_version  // grab latest forge
     mappings = project.mappings_version
     runDir = 'run'
     replace '@MOD_VERSION@', project.mod_version
@@ -44,11 +44,12 @@ processResources {
         expand ([
             'mod_version': project.mod_version,
             'forge_version': project.forge_version,
+            'forge_versionlimit': project.forge_versionlimit,
             'minecraft_version': project.minecraft_version,
         ])
     }
 
-    // copy everything else that we didnt do before
+    // copy everything else that we didn't do before
     from(sourceSets.main.resources.srcDirs) {
         exclude '**/*.info'
         exclude '**/*.properties'
@@ -60,12 +61,19 @@ jar {
     appendix = project.appendix
 }
 
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    from sourceSets.main.java
+    appendix = 'deobf'
+}
+
 sourceJar {
     appendix = 'src'
     classifier = ''
 }
 
 artifacts {
+    archives deobfJar
     archives sourceJar
 }
 
@@ -81,5 +89,11 @@ if (project.hasProperty('api_key_curse') && project.hasProperty('extra_curse_id'
 
             addArtifact sourceJar
         }
+    }
+}
+
+idea {
+    module {
+        inheritOutputDirs = true
     }
 }

@@ -4,7 +4,7 @@ import net.minecraft.network.PacketBuffer;
 
 public interface BSPacket
 {
-    public void readBytes(PacketBuffer bytes);
+    void readBytes(PacketBuffer bytes);
 
-    public void writeBytes(PacketBuffer bytes);
+    void writeBytes(PacketBuffer bytes);
 }

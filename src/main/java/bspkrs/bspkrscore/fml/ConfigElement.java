@@ -17,13 +17,13 @@ public enum ConfigElement
     SHOW_MAIN_MENU_MOBS("showMainMenuMobs", "bspkrs.configgui.showMainMenuMobs",
             "Set to true to show your logged-in player and a random mob on the main menu, false to disable.", BOOLEAN);
 
-    private String        key;
-    private String        langKey;
-    private String        desc;
-    private Property.Type propertyType;
-    private String[]      validStrings;
+    private final String        key;
+    private final String        langKey;
+    private final String        desc;
+    private final Property.Type propertyType;
+    private final String[]      validStrings;
 
-    private ConfigElement(String key, String langKey, String desc, Property.Type propertyType, String[] validStrings)
+    ConfigElement(String key, String langKey, String desc, Property.Type propertyType, String[] validStrings)
     {
         this.key = key;
         this.langKey = langKey;
@@ -32,7 +32,7 @@ public enum ConfigElement
         this.validStrings = validStrings;
     }
 
-    private ConfigElement(String key, String langKey, String desc, Property.Type propertyType)
+    ConfigElement(String key, String langKey, String desc, Property.Type propertyType)
     {
         this(key, langKey, desc, propertyType, new String[0]);
     }

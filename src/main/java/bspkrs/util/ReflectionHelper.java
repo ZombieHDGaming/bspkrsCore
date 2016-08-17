@@ -3,7 +3,7 @@ package bspkrs.util;
 import java.lang.reflect.Field;
 import java.util.List;
 
-public class ReflectionHelper
+class ReflectionHelper
 {
     @SuppressWarnings("rawtypes")
     public static List getListObject(Class clazz, String srgFieldName, String mcpFieldName, Object instance)

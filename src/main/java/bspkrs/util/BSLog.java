@@ -12,7 +12,7 @@ public enum BSLog
 
     private Logger logger;
 
-    public Logger getLogger()
+    private Logger getLogger()
     {
         if (logger == null)
             init();

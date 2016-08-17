@@ -1,12 +1,8 @@
 package bspkrs.client.util;
 
 import java.lang.reflect.Field;
+import java.util.*;
 import java.util.AbstractMap.SimpleEntry;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.UUID;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
@@ -25,7 +21,7 @@ import bspkrs.util.BSLog;
 
 import com.mojang.authlib.GameProfile;
 
-public class EntityUtils
+class EntityUtils
 {
     // @formatter:off
 	/**
@@ -207,20 +203,18 @@ public class EntityUtils
 
     public static EntityLivingBase getRandomLivingEntity(World world)
     {
-        return getRandomLivingEntity(world, null, 5, null);
+        return getRandomLivingEntity(world);
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public static EntityLivingBase getRandomLivingEntity(World world,
-            List blacklist, int numberOfAttempts,
-            List<SimpleEntry<UUID, String>> fallbackPlayerNames)
+    private static EntityLivingBase getRandomLivingEntity(World world)
     {
         Random random = new Random();
         // Get a COPY dumbass!
         Set entities = new TreeSet(EntityList.NAME_TO_CLASS.keySet());
 
-        if (blacklist != null)
-            entities.removeAll(blacklist);
+        if (null != null)
+            entities.removeAll(null);
 
         Object[] entStrings = entities.toArray(new Object[] {});
         int id;
@@ -233,14 +227,14 @@ public class EntityUtils
             clazz = (Class) EntityList.NAME_TO_CLASS.get(entStrings[id]);
         }
         while (!EntityLivingBase.class.isAssignableFrom(clazz)
-                && (++tries <= numberOfAttempts));
+                && (++tries <= 5));
 
         if (!EntityLivingBase.class.isAssignableFrom(clazz))
         {
-            if (fallbackPlayerNames != null)
+            if (null != null)
             {
-                SimpleEntry<UUID, String> entry = fallbackPlayerNames
-                        .get(random.nextInt(fallbackPlayerNames.size()));
+                SimpleEntry<UUID, String> entry = (List<SimpleEntry<UUID, String>>) null
+                        .get(random.nextInt((List<SimpleEntry<UUID, String>>) null.size()));
                 return new EntityOtherPlayerMP(world, Minecraft
                         .getMinecraft()
                         .getSessionService()

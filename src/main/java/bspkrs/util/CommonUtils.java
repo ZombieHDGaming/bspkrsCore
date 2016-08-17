@@ -92,7 +92,7 @@ public final class CommonUtils
         return false;
     }
 
-    public static boolean isIDInList(int id, int md, String list)
+    private static boolean isIDInList(int id, int md, String list)
     {
         String[] itemArray = list.split(";");
         for (int i = 0; i < itemArray.length; i++)
@@ -132,7 +132,7 @@ public final class CommonUtils
         return res;
     }
 
-    public static int[][] stringToGroup(String string)
+    private static int[][] stringToGroup(String string)
     {
         List<int[]> blockList = new ArrayList<int[]>();
         String[] blocks = string.split(">");
@@ -148,7 +148,7 @@ public final class CommonUtils
         return res;
     }
 
-    public static int[] stringToBlock(String string)
+    private static int[] stringToBlock(String string)
     {
         int[] values = new int[] { 0, -1 };
         String[] src = string.split(",");
@@ -171,7 +171,7 @@ public final class CommonUtils
         return false;
     }
 
-    public static int indexOfBlock(int[] block, int[][] group)
+    private static int indexOfBlock(int[] block, int[][] group)
     {
         for (int i = 0; i < group.length; i++)
         {
@@ -238,7 +238,7 @@ public final class CommonUtils
      * Math helpers
      */
 
-    public static int sqr(int value)
+    private static int sqr(int value)
     {
         return value * value;
     }
@@ -248,7 +248,7 @@ public final class CommonUtils
         return value * value;
     }
 
-    public static int parseInt(String string)
+    private static int parseInt(String string)
     {
         return parseInt(string, 0);
     }
@@ -277,16 +277,16 @@ public final class CommonUtils
 
     public static boolean moveBlock(World world, BlockPos src, BlockPos tgt, boolean allowBlockReplacement)
     {
-        return moveBlock(world, src, tgt, allowBlockReplacement, BlockNotifyType.ALL);
+        return moveBlock(world, src, tgt, allowBlockReplacement);
     }
 
-    public static boolean moveBlock(World world, BlockPos src, BlockPos tgt, boolean allowBlockReplacement, int notifyFlag)
+    private static boolean moveBlock(World world, BlockPos src, BlockPos tgt, boolean allowBlockReplacement)
     {
         if (!world.isRemote && !world.isAirBlock(src) && (world.isAirBlock(tgt) || allowBlockReplacement))
         {
             IBlockState state = world.getBlockState(src);
     
-            world.setBlockState(tgt, state, notifyFlag);
+            world.setBlockState(tgt, state, BlockNotifyType.ALL);
     
             TileEntity te = world.getTileEntity(src);
             if (te != null)
@@ -352,7 +352,7 @@ public final class CommonUtils
         return Math.abs(endPos.getY() - startPos.getY());
     }
 
-    public static double getDistanceRatioToCenter(int point1, int point2, int pos)
+    private static double getDistanceRatioToCenter(int point1, int point2, int pos)
     {
         double radius = Math.abs(point2 - point1) / 2D;
         double dar = Math.abs(Math.abs(pos - point1) - radius);
@@ -374,7 +374,7 @@ public final class CommonUtils
         fillWithBlocksRounded(world, new BlockPos(x - cw, y + h, z - cw), new BlockPos(x + cw, y + h, z + cw), state.getBlock().getStateFromMeta(14));
     }
 
-    public static void fillWithBlocks(World world, BlockPos pos1, BlockPos pos2, IBlockState state)
+    private static void fillWithBlocks(World world, BlockPos pos1, BlockPos pos2, IBlockState state)
     {
         for (int x = pos1.getX(); x <= pos2.getX(); x++)
             for (int y = pos1.getY(); y <= pos2.getY(); y++)
@@ -382,7 +382,7 @@ public final class CommonUtils
                     world.setBlockState(new BlockPos(x, y, z), state, 3);
     }
 
-    public static void fillWithBlocksRounded(World world, BlockPos pos1, BlockPos pos2, IBlockState state)
+    private static void fillWithBlocksRounded(World world, BlockPos pos1, BlockPos pos2, IBlockState state)
     {
         for (int x = pos1.getX(); x <= pos2.getX(); x++)
             for (int y = pos1.getY(); y <= pos2.getY(); y++)
@@ -442,18 +442,18 @@ public final class CommonUtils
         return time;
     }
 
-    public static String stringArrayToString(String[] sa)
+    private static String stringArrayToString(String[] sa)
     {
-        return stringArrayToString(sa, "#");
+        return stringArrayToString(sa);
     }
 
-    public static String stringArrayToString(String[] sa, String separator)
+    private static String stringArrayToString(String[] sa)
     {
         String ret = "";
         for (String s : sa)
-            ret += separator + " " + s;
+            ret += "#" + " " + s;
 
-        return ret.replaceFirst(separator + " ", "");
+        return ret.replaceFirst("#" + " ", "");
     }
 
     public static String[] loadTextFromURL(URL url, Logger logger)
@@ -481,7 +481,7 @@ public final class CommonUtils
         return loadTextFromURL(url, logger, defaultValue, 0);
     }
 
-    public static String[] loadTextFromURL(URL url, Logger logger, String[] defaultValue, int timeoutMS)
+    private static String[] loadTextFromURL(URL url, Logger logger, String[] defaultValue, int timeoutMS)
     {
         List<String> arraylist = new ArrayList<String>();
         Scanner scanner = null;
@@ -524,7 +524,7 @@ public final class CommonUtils
         }
     }
 
-    public static String getMinecraftDir()
+    private static String getMinecraftDir()
     {
         try
         {

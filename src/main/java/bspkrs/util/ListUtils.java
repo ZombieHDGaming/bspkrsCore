@@ -3,7 +3,7 @@ package bspkrs.util;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListUtils
+class ListUtils
 {
     public static String getListAsDelimitedString(List<?> list, String delimiter)
     {
@@ -58,7 +58,7 @@ public class ListUtils
 
         for (String format : dList.split(delimiter))
             if (!format.trim().isEmpty())
-                list.add(new ItemID(format, ","));
+                list.add(new ItemID(format));
 
         return list;
     }

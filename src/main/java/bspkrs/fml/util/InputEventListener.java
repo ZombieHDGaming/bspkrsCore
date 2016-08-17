@@ -19,11 +19,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public abstract class InputEventListener
 {
-    private static HashMap<KeyBinding, InputEventListener> instances = new HashMap<KeyBinding, InputEventListener>();
+    private static final HashMap<KeyBinding, InputEventListener> instances = new HashMap<KeyBinding, InputEventListener>();
 
-    protected KeyBinding                                   keyBinding;
-    protected boolean                                      isKeyDown;
-    protected boolean                                      allowRepeats;
+    private final KeyBinding                                   keyBinding;
+    private boolean                                      isKeyDown;
+    private final boolean                                      allowRepeats;
 
     public InputEventListener(KeyBinding keyBinding, boolean allowRepeats)
     {
@@ -70,7 +70,7 @@ public abstract class InputEventListener
 
     public abstract void keyUp(KeyBinding kb);
 
-    public static boolean isRegistered(KeyBinding kb)
+    private static boolean isRegistered(KeyBinding kb)
     {
         return instances.containsKey(kb);
     }

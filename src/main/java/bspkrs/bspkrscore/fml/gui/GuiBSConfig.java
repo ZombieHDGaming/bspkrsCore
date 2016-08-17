@@ -6,7 +6,7 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.config.GuiConfig;
 import bspkrs.bspkrscore.fml.Reference;
 
-public class GuiBSConfig extends GuiConfig
+class GuiBSConfig extends GuiConfig
 {
     public GuiBSConfig(GuiScreen parent)
     {

@@ -10,10 +10,10 @@ import net.minecraftforge.fml.common.registry.GameData;
 @Deprecated // TODO: replace with a IBlockState implementation
 public class BlockID
 {
-    public final String id;
-    public final int    metadata;
+    final String id;
+    final int    metadata;
 
-    public BlockID(String id, int metadata)
+    BlockID(String id, int metadata)
     {
         this.id = id;
         this.metadata = metadata;
@@ -24,7 +24,7 @@ public class BlockID
         this(block, -1);
     }
 
-    public BlockID(Block block, int metadata)
+    BlockID(Block block, int metadata)
     {
         this(GameData.getBlockRegistry().getNameForObject(block).toString(), metadata);
     }
@@ -34,12 +34,12 @@ public class BlockID
         this(GameData.getBlockRegistry().getNameForObject(block).toString(), -1);
     }
 
-    public BlockID(Block block, IBlockState state)
+    private BlockID(Block block, IBlockState state)
     {
         this(block, block.getMetaFromState(state));
     }
 
-    public BlockID(IBlockState state)
+    private BlockID(IBlockState state)
     {
         this(state.getBlock(), state);
     }
@@ -59,7 +59,7 @@ public class BlockID
         return getBlock() != null;
     }
 
-    public Block getBlock()
+    private Block getBlock()
     {
         return GameData.getBlockRegistry().getObject(new ResourceLocation(id));
     }

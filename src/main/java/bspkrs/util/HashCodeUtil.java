@@ -23,7 +23,7 @@ import java.lang.reflect.Array;
  * </pre>
  */
 @Deprecated
-public final class HashCodeUtil
+final class HashCodeUtil
 {
     /**
      * An initial value for a <code>hashCode</code>, to which is added contributions from fields. Using a non-zero value decreases
@@ -50,7 +50,7 @@ public final class HashCodeUtil
     /**
      * ints.
      */
-    public static int hash(int aSeed, int aInt)
+    private static int hash(int aSeed, int aInt)
     {
         /*
          * Implementation Note Note that byte and short are handled by this method, through implicit conversion.
@@ -61,7 +61,7 @@ public final class HashCodeUtil
     /**
      * longs.
      */
-    public static int hash(int aSeed, long aLong)
+    private static int hash(int aSeed, long aLong)
     {
         return firstTerm(aSeed) + (int) (aLong ^ (aLong >>> 32));
     }
@@ -87,7 +87,7 @@ public final class HashCodeUtil
      * 
      * If <code>aObject</code> is an array, then each element may be a primitive or a possibly-null object.
      */
-    public static int hash(int aSeed, Object aObject)
+    private static int hash(int aSeed, Object aObject)
     {
         int result = aSeed;
         if (aObject == null)

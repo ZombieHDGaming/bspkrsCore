@@ -5,7 +5,7 @@ import io.netty.channel.ChannelHandlerContext;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.common.network.FMLIndexedMessageToMessageCodec;
 
-public class BSMessageToMessageCodec extends FMLIndexedMessageToMessageCodec<BSPacket>
+class BSMessageToMessageCodec extends FMLIndexedMessageToMessageCodec<BSPacket>
 {
     public BSMessageToMessageCodec()
     {}

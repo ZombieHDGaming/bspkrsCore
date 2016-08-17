@@ -8,14 +8,13 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class TMTicker
+class TMTicker
 {
-    private Minecraft      mcClient;
     private static boolean isRegistered = false;
 
     public TMTicker()
     {
-        mcClient = FMLClientHandler.instance().getClient();
+        Minecraft mcClient = FMLClientHandler.instance().getClient();
         isRegistered = true;
     }
 

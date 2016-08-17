@@ -27,22 +27,22 @@ public class bspkrsCoreMod
 {
     // config stuff
     private final boolean       allowUpdateCheckDefault          = true;
-    public boolean              allowUpdateCheck                 = allowUpdateCheckDefault;
+    private boolean              allowUpdateCheck                 = allowUpdateCheckDefault;
     private final boolean       allowDebugOutputDefault          = false;
     public boolean              allowDebugOutput                 = allowDebugOutputDefault;
     private final int           updateTimeoutMillisecondsDefault = 3000;
-    public int                  updateTimeoutMilliseconds        = updateTimeoutMillisecondsDefault;
+    private int                  updateTimeoutMilliseconds        = updateTimeoutMillisecondsDefault;
     private final boolean       generateUniqueNamesFileDefault   = true;
-    public boolean              generateUniqueNamesFile          = generateUniqueNamesFileDefault;
+    private boolean              generateUniqueNamesFile          = generateUniqueNamesFileDefault;
 
     @Metadata(value = Reference.MODID)
     public static ModMetadata   metadata;
 
     @Instance(value = Reference.MODID)
-    public static bspkrsCoreMod instance;
+    public static final bspkrsCoreMod instance;
 
     @SidedProxy(clientSide = Reference.PROXY_CLIENT, serverSide = Reference.PROXY_COMMON)
-    public static CommonProxy   proxy;
+    public static final CommonProxy   proxy;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
@@ -60,7 +60,7 @@ public class bspkrsCoreMod
         syncConfig();
     }
 
-    public void syncConfig()
+    private void syncConfig()
     {
         String ctgyGen = Configuration.CATEGORY_GENERAL;
         Reference.config.load();
@@ -107,11 +107,6 @@ public class bspkrsCoreMod
     {
         if (generateUniqueNamesFile)
             UniqueNameListGenerator.instance().run();
-    }
-
-    @EventHandler
-    public void serverStarting(FMLServerStartingEvent event)
-    {
     }
 
     @SubscribeEvent
