@@ -5,7 +5,7 @@ import net.minecraftforge.common.config.ConfigElement;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.config.GuiConfig;
 
-class GuiTestModConfig extends GuiConfig
+public class GuiTestModConfig extends GuiConfig
 {
     public GuiTestModConfig(GuiScreen parent)
     {

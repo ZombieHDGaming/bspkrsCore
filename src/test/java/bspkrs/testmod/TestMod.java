@@ -21,7 +21,7 @@ public class TestMod
     public static TestMod       instance;
 
     @SidedProxy(clientSide = "bspkrs.testmod.ClientProxy", serverSide = "bspkrs.testmod.CommonProxy")
-    private static final CommonProxy   proxy;
+    public static CommonProxy   proxy;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)

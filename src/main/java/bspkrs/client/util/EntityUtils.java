@@ -1,9 +1,8 @@
 package bspkrs.client.util;
 
-import java.lang.reflect.Field;
-import java.util.*;
-import java.util.AbstractMap.SimpleEntry;
-
+import bspkrs.bspkrscore.fml.bspkrsCoreMod;
+import bspkrs.util.BSLog;
+import com.mojang.authlib.GameProfile;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.model.ModelBase;
@@ -16,12 +15,12 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.world.World;
-import bspkrs.bspkrscore.fml.bspkrsCoreMod;
-import bspkrs.util.BSLog;
 
-import com.mojang.authlib.GameProfile;
+import java.lang.reflect.Field;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.*;
 
-class EntityUtils
+public class EntityUtils
 {
     // @formatter:off
 	/**
@@ -203,18 +202,20 @@ class EntityUtils
 
     public static EntityLivingBase getRandomLivingEntity(World world)
     {
-        return getRandomLivingEntity(world);
+        return getRandomLivingEntity(world, null, 5, null);
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    private static EntityLivingBase getRandomLivingEntity(World world)
+    public static EntityLivingBase getRandomLivingEntity(World world,
+            List blacklist, int numberOfAttempts,
+            List<SimpleEntry<UUID, String>> fallbackPlayerNames)
     {
         Random random = new Random();
         // Get a COPY dumbass!
         Set entities = new TreeSet(EntityList.NAME_TO_CLASS.keySet());
 
-        if (null != null)
-            entities.removeAll(null);
+        if (blacklist != null)
+            entities.removeAll(blacklist);
 
         Object[] entStrings = entities.toArray(new Object[] {});
         int id;
@@ -227,14 +228,14 @@ class EntityUtils
             clazz = (Class) EntityList.NAME_TO_CLASS.get(entStrings[id]);
         }
         while (!EntityLivingBase.class.isAssignableFrom(clazz)
-                && (++tries <= 5));
+                && (++tries <= numberOfAttempts));
 
         if (!EntityLivingBase.class.isAssignableFrom(clazz))
         {
-            if (null != null)
+            if (fallbackPlayerNames != null)
             {
-                SimpleEntry<UUID, String> entry = (List<SimpleEntry<UUID, String>>) null
-                        .get(random.nextInt((List<SimpleEntry<UUID, String>>) null.size()));
+                SimpleEntry<UUID, String> entry = fallbackPlayerNames
+                        .get(random.nextInt(fallbackPlayerNames.size()));
                 return new EntityOtherPlayerMP(world, Minecraft
                         .getMinecraft()
                         .getSessionService()

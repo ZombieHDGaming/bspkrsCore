@@ -9,10 +9,10 @@ public class ItemID
     /**
      * Unique ID of the item from the namespace registry
      */
-    private final String id;
-    private final int    damage;
+    public final String id;
+    public final int    damage;
 
-    private ItemID(String id, int damage)
+    public ItemID(String id, int damage)
     {
         this.id = id;
         this.damage = damage;
@@ -33,7 +33,7 @@ public class ItemID
         this(itemStack.getItem(), -1);
     }
 
-    private ItemID(Item item, int damage)
+    public ItemID(Item item, int damage)
     {
         this(GameData.getItemRegistry().getNameForObject(item).toString(), damage);
     }
@@ -43,9 +43,9 @@ public class ItemID
         this(GameData.getItemRegistry().getNameForObject(item).toString(), -1);
     }
 
-    public ItemID(String format)
+    public ItemID(String format, String delimiter)
     {
-        String[] parts = format.split(",");
+        String[] parts = format.split(delimiter);
 
         if (parts.length > 1)
         {

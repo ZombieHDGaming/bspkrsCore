@@ -1,13 +1,7 @@
 package bspkrs.fml.util;
 
-import java.util.HashMap;
-
 import net.minecraft.client.settings.KeyBinding;
-
 import net.minecraftforge.common.MinecraftForge;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
-
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
@@ -15,15 +9,19 @@ import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.MouseInputEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
+
+import java.util.HashMap;
 
 @SideOnly(Side.CLIENT)
 public abstract class InputEventListener
 {
-    private static final HashMap<KeyBinding, InputEventListener> instances = new HashMap<KeyBinding, InputEventListener>();
+    private static HashMap<KeyBinding, InputEventListener> instances = new HashMap<KeyBinding, InputEventListener>();
 
-    private final KeyBinding                                   keyBinding;
-    private boolean                                      isKeyDown;
-    private final boolean                                      allowRepeats;
+    protected KeyBinding                                   keyBinding;
+    protected boolean                                      isKeyDown;
+    protected boolean                                      allowRepeats;
 
     public InputEventListener(KeyBinding keyBinding, boolean allowRepeats)
     {
@@ -70,7 +68,7 @@ public abstract class InputEventListener
 
     public abstract void keyUp(KeyBinding kb);
 
-    private static boolean isRegistered(KeyBinding kb)
+    public static boolean isRegistered(KeyBinding kb)
     {
         return instances.containsKey(kb);
     }

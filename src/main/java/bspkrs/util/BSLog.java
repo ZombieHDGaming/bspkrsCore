@@ -1,10 +1,9 @@
 package bspkrs.util;
 
+import bspkrs.bspkrscore.fml.Reference;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import bspkrs.bspkrscore.fml.Reference;
 
 public enum BSLog
 {
@@ -12,7 +11,7 @@ public enum BSLog
 
     private Logger logger;
 
-    private Logger getLogger()
+    public Logger getLogger()
     {
         if (logger == null)
             init();

@@ -8,11 +8,11 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 
-class DelayedGuiDisplayTicker
+public class DelayedGuiDisplayTicker
 {
     private int       delayTicks;
-    private final Minecraft mcClient;
-    private final GuiScreen screen;
+    private Minecraft mcClient;
+    private GuiScreen screen;
 
     public DelayedGuiDisplayTicker(int delayTicks, GuiScreen screen)
     {

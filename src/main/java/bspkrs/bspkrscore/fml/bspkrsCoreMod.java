@@ -1,9 +1,8 @@
 package bspkrs.bspkrscore.fml;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
+import bspkrs.util.CommonUtils;
+import bspkrs.util.Const;
+import bspkrs.util.UniqueNameListGenerator;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent.OnConfigChangedEvent;
@@ -18,9 +17,10 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import bspkrs.util.CommonUtils;
-import bspkrs.util.Const;
-import bspkrs.util.UniqueNameListGenerator;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 @Mod(modid = Reference.MODID, name = Reference.NAME, version = "@MOD_VERSION@", useMetadata = true, guiFactory = Reference.GUI_FACTORY, updateJSON = Const.VERSION_URL_BASE + Reference.MODID + Const.VERSION_URL_EXT)
 public class bspkrsCoreMod
@@ -60,7 +60,7 @@ public class bspkrsCoreMod
         syncConfig();
     }
 
-    private void syncConfig()
+    public void syncConfig()
     {
         String ctgyGen = Configuration.CATEGORY_GENERAL;
         Reference.config.load();
@@ -107,6 +107,11 @@ public class bspkrsCoreMod
     {
         if (generateUniqueNamesFile)
             UniqueNameListGenerator.instance().run();
+    }
+
+    @EventHandler
+    public void serverStarting(FMLServerStartingEvent event)
+    {
     }
 
     @SubscribeEvent

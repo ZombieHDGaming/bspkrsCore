@@ -1,8 +1,9 @@
 package bspkrs.bspkrscore.fml;
 
+import net.minecraftforge.common.config.Property;
+
 import static net.minecraftforge.common.config.Property.Type.BOOLEAN;
 import static net.minecraftforge.common.config.Property.Type.INTEGER;
-import net.minecraftforge.common.config.Property;
 
 public enum ConfigElement
 {
@@ -23,7 +24,7 @@ public enum ConfigElement
     private final Property.Type propertyType;
     private final String[]      validStrings;
 
-    ConfigElement(String key, String langKey, String desc, Property.Type propertyType, String[] validStrings)
+    private ConfigElement(String key, String langKey, String desc, Property.Type propertyType, String[] validStrings)
     {
         this.key = key;
         this.langKey = langKey;
@@ -32,7 +33,7 @@ public enum ConfigElement
         this.validStrings = validStrings;
     }
 
-    ConfigElement(String key, String langKey, String desc, Property.Type propertyType)
+    private ConfigElement(String key, String langKey, String desc, Property.Type propertyType)
     {
         this(key, langKey, desc, propertyType, new String[0]);
     }

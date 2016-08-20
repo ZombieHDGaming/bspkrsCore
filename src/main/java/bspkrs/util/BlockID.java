@@ -2,18 +2,18 @@ package bspkrs.util;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameData;
 
 @Deprecated // TODO: replace with a IBlockState implementation
 public class BlockID
 {
-    final String id;
-    final int    metadata;
+    public final String id;
+    public final int    metadata;
 
-    BlockID(String id, int metadata)
+    public BlockID(String id, int metadata)
     {
         this.id = id;
         this.metadata = metadata;
@@ -24,7 +24,7 @@ public class BlockID
         this(block, -1);
     }
 
-    BlockID(Block block, int metadata)
+    public BlockID(Block block, int metadata)
     {
         this(GameData.getBlockRegistry().getNameForObject(block).toString(), metadata);
     }
@@ -34,12 +34,12 @@ public class BlockID
         this(GameData.getBlockRegistry().getNameForObject(block).toString(), -1);
     }
 
-    private BlockID(Block block, IBlockState state)
+    public BlockID(Block block, IBlockState state)
     {
         this(block, block.getMetaFromState(state));
     }
 
-    private BlockID(IBlockState state)
+    public BlockID(IBlockState state)
     {
         this(state.getBlock(), state);
     }
@@ -59,7 +59,7 @@ public class BlockID
         return getBlock() != null;
     }
 
-    private Block getBlock()
+    public Block getBlock()
     {
         return GameData.getBlockRegistry().getObject(new ResourceLocation(id));
     }

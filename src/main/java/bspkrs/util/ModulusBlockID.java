@@ -16,18 +16,18 @@ public class ModulusBlockID extends BlockID
         this.metadataModulus = Math.max(metadataModulus, 1);
     }
 
-    private ModulusBlockID(Block block, int metadata, int metadataModulus)
+    public ModulusBlockID(Block block, int metadata, int metadataModulus)
     {
         super(block, Math.max(metadata, 0) % Math.max(metadataModulus, 1));
         this.metadataModulus = Math.max(metadataModulus, 1);
     }
 
-    private ModulusBlockID(Block block, IBlockState state, int metadataModulus)
+    public ModulusBlockID(Block block, IBlockState state, int metadataModulus)
     {
         this(block, block.getMetaFromState(state), metadataModulus);
     }
 
-    private ModulusBlockID(IBlockState state, int metadataModulus)
+    public ModulusBlockID(IBlockState state, int metadataModulus)
     {
         this(state.getBlock(), state, metadataModulus);
     }

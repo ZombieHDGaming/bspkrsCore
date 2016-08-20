@@ -2,10 +2,10 @@ package bspkrs.client.util;
 
 import java.util.List;
 
-class ColorThreshold implements Comparable<ColorThreshold>
+public class ColorThreshold implements Comparable<ColorThreshold>
 {
-    private final int    threshold;
-    private final String colorCode;
+    public int    threshold;
+    public String colorCode;
 
     public ColorThreshold(int t, String c)
     {

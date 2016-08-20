@@ -12,12 +12,11 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
 
-final class HUDUtils
+public final class HUDUtils
 {
-    private static final int[] colorCodes = new int[] { 0, 170, 43520, 43690, 11141120, 11141290, 16755200, 11184810, 5592405, 5592575, 5635925, 5636095, 16733525, 16733695, 16777045, 16777215,
+    private static int[] colorCodes = new int[] { 0, 170, 43520, 43690, 11141120, 11141290, 16755200, 11184810, 5592405, 5592575, 5635925, 5636095, 16733525, 16733695, 16777045, 16777215,
                                     0, 42, 10752, 10794, 2752512, 2752554, 2763264, 2763306, 1381653, 1381695, 1392405, 1392447, 4134165, 4134207, 4144917, 4144959 };
 
     public static int getColorCode(char c, boolean isLighter)
@@ -90,8 +89,8 @@ final class HUDUtils
      * @param rightBorder the size of the box's right border
      * @param zLevel the zLevel to draw at
      */
-    private static void drawContinuousTexturedBox(ResourceLocation res, int x, int y, int u, int v, int width, int height, int textureWidth, int textureHeight,
-                                                  int topBorder, int bottomBorder, int leftBorder, int rightBorder, float zLevel)
+    public static void drawContinuousTexturedBox(ResourceLocation res, int x, int y, int u, int v, int width, int height, int textureWidth, int textureHeight,
+            int topBorder, int bottomBorder, int leftBorder, int rightBorder, float zLevel)
     {
         Minecraft.getMinecraft().getTextureManager().bindTexture(res);
         drawContinuousTexturedBox(x, y, u, v, width, height, textureWidth, textureHeight, topBorder, bottomBorder, leftBorder, rightBorder, zLevel);
@@ -116,8 +115,8 @@ final class HUDUtils
      * @param rightBorder the size of the box's right border
      * @param zLevel the zLevel to draw at
      */
-    private static void drawContinuousTexturedBox(int x, int y, int u, int v, int width, int height, int textureWidth, int textureHeight,
-                                                  int topBorder, int bottomBorder, int leftBorder, int rightBorder, float zLevel)
+    public static void drawContinuousTexturedBox(int x, int y, int u, int v, int width, int height, int textureWidth, int textureHeight,
+            int topBorder, int bottomBorder, int leftBorder, int rightBorder, float zLevel)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         GL11.glEnable(GL11.GL_BLEND);
@@ -165,7 +164,7 @@ final class HUDUtils
         }
     }
 
-    private static void drawTexturedModalRect(int x, int y, int u, int v, int width, int height, float zLevel)
+    public static void drawTexturedModalRect(int x, int y, int u, int v, int width, int height, float zLevel)
     {
         float var7 = 0.00390625F;
         float var8 = 0.00390625F;
@@ -184,17 +183,17 @@ final class HUDUtils
      */
     public static void renderItemOverlayIntoGUI(FontRenderer fontRenderer, ItemStack itemStack, int x, int y)
     {
-        renderItemOverlayIntoGUI(fontRenderer, itemStack, x, y);
+        renderItemOverlayIntoGUI(fontRenderer, itemStack, x, y, true, true);
     }
 
     /**
      * Renders the item's overlay information. Examples being stack count or damage on top of the item's image at the specified position.
      */
-    private static void renderItemOverlayIntoGUI(FontRenderer fontRenderer, ItemStack itemStack, int x, int y)
+    public static void renderItemOverlayIntoGUI(FontRenderer fontRenderer, ItemStack itemStack, int x, int y, boolean showDamageBar, boolean showCount)
     {
-        if ((itemStack != null) && (true || true))
+        if ((itemStack != null) && (showDamageBar || showCount))
         {
-            if (itemStack.isItemDamaged() && true)
+            if (itemStack.isItemDamaged() && showDamageBar)
             {
                 int var11 = (int) Math.round(13.0D - ((itemStack.getItemDamage() * 13.0D) / itemStack.getMaxDamage()));
                 int var7 = (int) Math.round(255.0D - ((itemStack.getItemDamage() * 255.0D) / itemStack.getMaxDamage()));
@@ -216,14 +215,14 @@ final class HUDUtils
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             }
 
-            if (true)
+            if (showCount)
             {
                 int count = 0;
 
                 if (itemStack.getMaxStackSize() > 1)
                     count = HUDUtils.countInInventory(Minecraft.getMinecraft().thePlayer, itemStack.getItem(), itemStack.getItemDamage());
                 else if (itemStack.getItem().equals(Items.BOW))
-                    count = HUDUtils.countInInventory(Minecraft.getMinecraft().thePlayer);
+                    count = HUDUtils.countInInventory(Minecraft.getMinecraft().thePlayer, Items.ARROW);
 
                 if (count > 1)
                 {
@@ -243,14 +242,14 @@ final class HUDUtils
      * Adds a quad to the tesselator at the specified position with the set width and height and color. Args: tessellator, x, y, width,
      * height, color
      */
-    private static void renderQuad(Tessellator tessellator, int x, int y, int width, int height, int color)
+    public static void renderQuad(Tessellator tessellator, int x, int y, int width, int height, int color)
     {
         VertexBuffer worldRenderer = tessellator.getBuffer();
         worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
         int a = (color >> 24) & 0xFF;
         int r = (color >> 16) & 0xFF;
         int g = (color >> 8) & 0xFF;
-        int b = (color) & 0xFF;
+        int b = (color >> 0) & 0xFF;
         worldRenderer.pos(x + 0, y + 0, 0.0D).color(r, g, b, a).endVertex();
         worldRenderer.pos(x + 0, y + height, 0.0D).color(r, g, b, a).endVertex();
         worldRenderer.pos(x + width, y + height, 0.0D).color(r, g, b, a).endVertex();
@@ -258,12 +257,12 @@ final class HUDUtils
         tessellator.draw();
     }
 
-    private static int countInInventory(EntityPlayer player)
+    public static int countInInventory(EntityPlayer player, Item item)
     {
-        return countInInventory(player, Items.ARROW, -1);
+        return countInInventory(player, item, -1);
     }
 
-    private static int countInInventory(EntityPlayer player, Item item, int md)
+    public static int countInInventory(EntityPlayer player, Item item, int md)
     {
         int count = 0;
         for (int i = 0; i < player.inventory.mainInventory.length; i++)

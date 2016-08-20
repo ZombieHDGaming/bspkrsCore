@@ -1,13 +1,13 @@
 package bspkrs.util;
 
+import net.minecraftforge.fml.common.registry.GameData;
+
 import java.io.File;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-
-import net.minecraftforge.fml.common.registry.GameData;
 
 public class UniqueNameListGenerator
 {

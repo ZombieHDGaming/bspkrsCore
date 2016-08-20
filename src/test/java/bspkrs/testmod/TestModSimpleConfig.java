@@ -1,20 +1,20 @@
 package bspkrs.testmod;
 
-import static net.minecraftforge.common.config.Configuration.CATEGORY_GENERAL;
+import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.Property;
 
 import java.io.File;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
-import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.common.config.Property;
+import static net.minecraftforge.common.config.Configuration.CATEGORY_GENERAL;
 
-class TestModSimpleConfig
+public class TestModSimpleConfig
 {
     private final static boolean   enabledDefault                   = true;
     public static boolean          enabled                          = enabledDefault;
     private final static boolean[] fixedBooleanListDefault          = new boolean[] { true, true, true, false, false, false };
-    private static boolean[]        fixedBooleanList                 = Arrays.copyOf(fixedBooleanListDefault, fixedBooleanListDefault.length);
+    public static boolean[]        fixedBooleanList                 = Arrays.copyOf(fixedBooleanListDefault, fixedBooleanListDefault.length);
     private final static String[]  variablePatternStringListDefault = new String[] { "minecraft:stone_pickaxe,1,0", "minecraft:stone_shovel,1,0",
                                                                     "minecraft:stone_sword,1,0,{RepairCost:2,display:{Name:\"Rapier\",},}",
                                                                     "minecraft:stone_axe,1,0", "minecraft:apple,16,0", "minecraft:torch,16,0",
@@ -22,25 +22,25 @@ class TestModSimpleConfig
                                                                     "minecraft:enchanted_book,1,0,{StoredEnchantments:[0:{id:51s,lvl:1s,},],}",
                                                                     "minecraft:anvil,1,0" };
     private final static Pattern   variablePatternStringListPattern = Pattern.compile("[A-Za-z]+:[A-Za-z_]+,[0-9]+,[0-9]+($|,\\{.+?\\}$)");
-    private static String[]         variablePatternStringList        = Arrays.copyOf(variablePatternStringListDefault, variablePatternStringListDefault.length);
+    public static String[]         variablePatternStringList        = Arrays.copyOf(variablePatternStringListDefault, variablePatternStringListDefault.length);
     private final static String    regularStringDefault             = "This is a regular string, anything goes.";
-    private static String           regularString                    = regularStringDefault;
+    public static String           regularString                    = regularStringDefault;
     private final static String    patternStringDefault             = "Only, comma, separated, words, can, be, entered, in, this, box";
-    private static String           patternString                    = patternStringDefault;
+    public static String           patternString                    = patternStringDefault;
     private final static Pattern   patternStringPattern             = Pattern.compile("([A-Za-z]+((,){1}( )*|$))+?");
     private final static String    selectStringDefault              = "This";
-    private static String           selectString                     = selectStringDefault;
+    public static String           selectString                     = selectStringDefault;
     private final static String[]  selectStringValues               = new String[] { "This", "property", "cycles", "through", "a", "list", "of", "valid", "choices." };
     private final static int       unboundedIntegerDefault          = 25;
-    private static int              unboundedInteger                 = unboundedIntegerDefault;
+    public static int              unboundedInteger                 = unboundedIntegerDefault;
     private final static int       boundedIntegerDefault            = 100;
-    private static int              boundedInteger                   = boundedIntegerDefault;
+    public static int              boundedInteger                   = boundedIntegerDefault;
     private final static float     unboundedFloatDefault            = 25.0F;
-    private static float            unboundedFloat                   = unboundedFloatDefault;
+    public static float            unboundedFloat                   = unboundedFloatDefault;
     private final static float     boundedFloatDefault              = 100.0F;
-    private static float            boundedFloat                     = boundedFloatDefault;
+    public static float            boundedFloat                     = boundedFloatDefault;
     private final static String    chatColorPickerDefault           = "c";
-    private static String           chatColorPicker                  = chatColorPickerDefault;
+    public static String           chatColorPicker                  = chatColorPickerDefault;
     private final static String[]  chatColorPickerValues            = new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f" };
 
     private static Configuration   config;
@@ -60,7 +60,7 @@ class TestModSimpleConfig
      * syncConfig() is used to load your config initially, or reload the fields after editing the values in the GUI. It must sync all the
      * metadata used by the GUI controls such as language keys, valid values, or min/max bounds.
      */
-    private static void syncConfig()
+    public static void syncConfig()
     {
         Property temp;
 

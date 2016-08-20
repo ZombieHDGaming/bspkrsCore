@@ -1,13 +1,6 @@
 package bspkrs.util;
 
-import java.io.File;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
-
+import bspkrs.bspkrscore.fml.bspkrsCoreMod;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiMainMenu;
@@ -18,17 +11,23 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 
-import bspkrs.bspkrscore.fml.bspkrsCoreMod;
+import java.io.File;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
 
 /*
  * @Authors: DaftPVF, bspkrs
@@ -92,7 +91,7 @@ public final class CommonUtils
         return false;
     }
 
-    private static boolean isIDInList(int id, int md, String list)
+    public static boolean isIDInList(int id, int md, String list)
     {
         String[] itemArray = list.split(";");
         for (int i = 0; i < itemArray.length; i++)
@@ -132,7 +131,7 @@ public final class CommonUtils
         return res;
     }
 
-    private static int[][] stringToGroup(String string)
+    public static int[][] stringToGroup(String string)
     {
         List<int[]> blockList = new ArrayList<int[]>();
         String[] blocks = string.split(">");
@@ -148,7 +147,7 @@ public final class CommonUtils
         return res;
     }
 
-    private static int[] stringToBlock(String string)
+    public static int[] stringToBlock(String string)
     {
         int[] values = new int[] { 0, -1 };
         String[] src = string.split(",");
@@ -171,7 +170,7 @@ public final class CommonUtils
         return false;
     }
 
-    private static int indexOfBlock(int[] block, int[][] group)
+    public static int indexOfBlock(int[] block, int[][] group)
     {
         for (int i = 0; i < group.length; i++)
         {
@@ -238,7 +237,7 @@ public final class CommonUtils
      * Math helpers
      */
 
-    private static int sqr(int value)
+    public static int sqr(int value)
     {
         return value * value;
     }
@@ -248,7 +247,7 @@ public final class CommonUtils
         return value * value;
     }
 
-    private static int parseInt(String string)
+    public static int parseInt(String string)
     {
         return parseInt(string, 0);
     }
@@ -277,16 +276,16 @@ public final class CommonUtils
 
     public static boolean moveBlock(World world, BlockPos src, BlockPos tgt, boolean allowBlockReplacement)
     {
-        return moveBlock(world, src, tgt, allowBlockReplacement);
+        return moveBlock(world, src, tgt, allowBlockReplacement, BlockNotifyType.ALL);
     }
 
-    private static boolean moveBlock(World world, BlockPos src, BlockPos tgt, boolean allowBlockReplacement)
+    public static boolean moveBlock(World world, BlockPos src, BlockPos tgt, boolean allowBlockReplacement, int notifyFlag)
     {
         if (!world.isRemote && !world.isAirBlock(src) && (world.isAirBlock(tgt) || allowBlockReplacement))
         {
             IBlockState state = world.getBlockState(src);
     
-            world.setBlockState(tgt, state, BlockNotifyType.ALL);
+            world.setBlockState(tgt, state, notifyFlag);
     
             TileEntity te = world.getTileEntity(src);
             if (te != null)
@@ -352,7 +351,7 @@ public final class CommonUtils
         return Math.abs(endPos.getY() - startPos.getY());
     }
 
-    private static double getDistanceRatioToCenter(int point1, int point2, int pos)
+    public static double getDistanceRatioToCenter(int point1, int point2, int pos)
     {
         double radius = Math.abs(point2 - point1) / 2D;
         double dar = Math.abs(Math.abs(pos - point1) - radius);
@@ -374,7 +373,7 @@ public final class CommonUtils
         fillWithBlocksRounded(world, new BlockPos(x - cw, y + h, z - cw), new BlockPos(x + cw, y + h, z + cw), state.getBlock().getStateFromMeta(14));
     }
 
-    private static void fillWithBlocks(World world, BlockPos pos1, BlockPos pos2, IBlockState state)
+    public static void fillWithBlocks(World world, BlockPos pos1, BlockPos pos2, IBlockState state)
     {
         for (int x = pos1.getX(); x <= pos2.getX(); x++)
             for (int y = pos1.getY(); y <= pos2.getY(); y++)
@@ -382,7 +381,7 @@ public final class CommonUtils
                     world.setBlockState(new BlockPos(x, y, z), state, 3);
     }
 
-    private static void fillWithBlocksRounded(World world, BlockPos pos1, BlockPos pos2, IBlockState state)
+    public static void fillWithBlocksRounded(World world, BlockPos pos1, BlockPos pos2, IBlockState state)
     {
         for (int x = pos1.getX(); x <= pos2.getX(); x++)
             for (int y = pos1.getY(); y <= pos2.getY(); y++)
@@ -442,18 +441,18 @@ public final class CommonUtils
         return time;
     }
 
-    private static String stringArrayToString(String[] sa)
+    public static String stringArrayToString(String[] sa)
     {
-        return stringArrayToString(sa);
+        return stringArrayToString(sa, "#");
     }
 
-    private static String stringArrayToString(String[] sa)
+    public static String stringArrayToString(String[] sa, String separator)
     {
         String ret = "";
         for (String s : sa)
-            ret += "#" + " " + s;
+            ret += separator + " " + s;
 
-        return ret.replaceFirst("#" + " ", "");
+        return ret.replaceFirst(separator + " ", "");
     }
 
     public static String[] loadTextFromURL(URL url, Logger logger)
@@ -481,7 +480,7 @@ public final class CommonUtils
         return loadTextFromURL(url, logger, defaultValue, 0);
     }
 
-    private static String[] loadTextFromURL(URL url, Logger logger, String[] defaultValue, int timeoutMS)
+    public static String[] loadTextFromURL(URL url, Logger logger, String[] defaultValue, int timeoutMS)
     {
         List<String> arraylist = new ArrayList<String>();
         Scanner scanner = null;
@@ -524,7 +523,7 @@ public final class CommonUtils
         }
     }
 
-    private static String getMinecraftDir()
+    public static String getMinecraftDir()
     {
         try
         {
@@ -532,11 +531,7 @@ public final class CommonUtils
         }
         catch (NoClassDefFoundError e)
         {
-//TODO: find an alternative static way to get a handle on MinecraftServer 
-// this is not a static reference anymore
-//            return MinecraftServer.getServer().getFile("").getAbsolutePath();
-// just throw it
-        	throw e;
+            return net.minecraftforge.fml.common.FMLCommonHandler.instance().getMinecraftServerInstance().getFile("").getAbsolutePath();
         }
     }
 
