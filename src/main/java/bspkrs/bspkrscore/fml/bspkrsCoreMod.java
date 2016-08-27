@@ -39,10 +39,10 @@ public class bspkrsCoreMod
     public static ModMetadata   metadata;
 
     @Instance(value = Reference.MODID)
-    public static final bspkrsCoreMod instance;
+    public static bspkrsCoreMod instance;
 
     @SidedProxy(clientSide = Reference.PROXY_CLIENT, serverSide = Reference.PROXY_COMMON)
-    public static final CommonProxy   proxy;
+    public static CommonProxy proxy;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
