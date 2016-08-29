@@ -1,5 +1,7 @@
 package bspkrs.util;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameData;
 
 import java.io.File;
@@ -30,10 +32,10 @@ public class UniqueNameListGenerator
             ArrayList<String> blockList = new ArrayList<String>();
             ArrayList<String> itemList = new ArrayList<String>();
 
-            for (Object obj : GameData.getBlockRegistry().getKeys())
+            for (Object obj : Block.REGISTRY.getKeys())
                 blockList.add(obj.toString());
 
-            for (Object obj : GameData.getItemRegistry().getKeys())
+            for (Object obj : Item.REGISTRY.getKeys())
                 itemList.add(obj.toString());
 
             Collections.sort(blockList);

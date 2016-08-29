@@ -27,7 +27,7 @@ public class bspkrsCoreMod
 {
     // config stuff
     private final boolean       allowUpdateCheckDefault          = true;
-    private boolean              allowUpdateCheck                 = allowUpdateCheckDefault;
+    private boolean              allowUpdateCheck                 = false;
     private final boolean       allowDebugOutputDefault          = false;
     public boolean              allowDebugOutput                 = allowDebugOutputDefault;
     private final int           updateTimeoutMillisecondsDefault = 3000;

@@ -35,12 +35,12 @@ public class ItemID
 
     public ItemID(Item item, int damage)
     {
-        this(GameData.getItemRegistry().getNameForObject(item).toString(), damage);
+        this(Item.REGISTRY.getNameForObject(item).toString(), damage);
     }
 
     public ItemID(Item item)
     {
-        this(GameData.getItemRegistry().getNameForObject(item).toString(), -1);
+        this(Item.REGISTRY.getNameForObject(item).toString(), -1);
     }
 
     public ItemID(String format, String delimiter)
