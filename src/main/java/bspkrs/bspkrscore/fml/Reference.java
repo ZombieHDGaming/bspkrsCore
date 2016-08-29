@@ -32,5 +32,7 @@ public class Reference
     public static final String  PROXY_CLIENT = "bspkrs.bspkrscore.fml.ClientProxy";
     public static final String  GUI_FACTORY  = "bspkrs.bspkrscore.fml.gui.ModGuiFactoryHandler";
 
+    public static final String FORGE_JSON_URL = "https://raw.githubusercontent.com/jco2641/bspkrsCore/master/forgeupdate.json";
+
     public static Configuration config       = null;
 }

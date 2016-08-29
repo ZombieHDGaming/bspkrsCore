@@ -1,6 +1,6 @@
 package bspkrs.testmod;
 
-import bspkrs.util.Const;
+import bspkrs.bspkrscore.fml.Reference;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 @Mod(modid = "TestMod", name = "TestMod", version = "2.0", dependencies = "required-after:bspkrsCore",
-        guiFactory = "bspkrs.testmod.ModGuiFactoryHandler", updateJSON = Const.VERSION_URL_BASE + "TestMod" + Const.VERSION_URL_EXT)
+        guiFactory = "bspkrs.testmod.ModGuiFactoryHandler", updateJSON = Reference.FORGE_JSON_URL)
 public class TestMod
 {
     @Metadata(value = "TestMod")

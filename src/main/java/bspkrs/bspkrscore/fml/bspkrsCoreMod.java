@@ -1,7 +1,6 @@
 package bspkrs.bspkrscore.fml;
 
 import bspkrs.util.CommonUtils;
-import bspkrs.util.Const;
 import bspkrs.util.UniqueNameListGenerator;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
@@ -22,18 +21,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-@Mod(modid = Reference.MODID, name = Reference.NAME, version = "@MOD_VERSION@", useMetadata = true, guiFactory = Reference.GUI_FACTORY, updateJSON = Const.VERSION_URL_BASE + Reference.MODID + Const.VERSION_URL_EXT)
+@Mod(modid = Reference.MODID, name = Reference.NAME, version = "@MOD_VERSION@", useMetadata = true, guiFactory = Reference.GUI_FACTORY, updateJSON = Reference.FORGE_JSON_URL)
 public class bspkrsCoreMod
 {
     // config stuff
-    private final boolean       allowUpdateCheckDefault          = true;
-    private boolean              allowUpdateCheck                 = false;
     private final boolean       allowDebugOutputDefault          = false;
     public boolean              allowDebugOutput                 = allowDebugOutputDefault;
-    private final int           updateTimeoutMillisecondsDefault = 3000;
-    private int                  updateTimeoutMilliseconds        = updateTimeoutMillisecondsDefault;
     private final boolean       generateUniqueNamesFileDefault   = true;
-    private boolean              generateUniqueNamesFile          = generateUniqueNamesFileDefault;
+    private boolean             generateUniqueNamesFile          = generateUniqueNamesFileDefault;
 
     @Metadata(value = Reference.MODID)
     public static ModMetadata   metadata;
@@ -70,12 +65,6 @@ public class bspkrsCoreMod
 
         List<String> orderedKeys = new ArrayList<String>(ConfigElement.values().length);
 
-        allowUpdateCheck = Reference.config.getBoolean(ConfigElement.ALLOW_UPDATE_CHECK.key(), ctgyGen, allowUpdateCheckDefault,
-                ConfigElement.ALLOW_UPDATE_CHECK.desc(), ConfigElement.ALLOW_UPDATE_CHECK.languageKey());
-        orderedKeys.add(ConfigElement.ALLOW_UPDATE_CHECK.key());
-        updateTimeoutMilliseconds = Reference.config.getInt(ConfigElement.UPDATE_TIMEOUT_MILLISECONDS.key(), ctgyGen, updateTimeoutMillisecondsDefault,
-                100, 30000, ConfigElement.UPDATE_TIMEOUT_MILLISECONDS.desc(), ConfigElement.UPDATE_TIMEOUT_MILLISECONDS.languageKey());
-        orderedKeys.add(ConfigElement.UPDATE_TIMEOUT_MILLISECONDS.key());
         allowDebugOutput = Reference.config.getBoolean(ConfigElement.ALLOW_DEBUG_OUTPUT.key(), ctgyGen, allowDebugOutput,
                 ConfigElement.ALLOW_DEBUG_OUTPUT.desc(), ConfigElement.ALLOW_DEBUG_OUTPUT.languageKey());
         orderedKeys.add(ConfigElement.ALLOW_DEBUG_OUTPUT.key());
