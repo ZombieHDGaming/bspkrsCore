@@ -1,7 +1,7 @@
 {
   "modListVersion": 2,
   "modList": [{
-    "modid": "bspkrsCore",
+    "modid": "bspkrscore",
     "name": "bspkrsCore",
     "description": "Shared classes used in the mods maintained by bspkrs.",
     "version": "${mod_version}",
