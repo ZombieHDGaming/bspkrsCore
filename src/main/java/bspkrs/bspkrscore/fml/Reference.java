@@ -8,31 +8,14 @@ import java.util.Properties;
 
 public class Reference
 {
-    static
-    {
-        Properties prop = new Properties();
+    public static final String  MODID           = "@MOD_ID@";
+    public static final String  NAME            = "@MOD_NAME@";
+    public static final String  VERSION         = "@MOD_VERSION@";
+    public static final String  PROXY_COMMON    = "bspkrs.bspkrscore.fml.CommonProxy";
+    public static final String  PROXY_CLIENT    = "bspkrs.bspkrscore.fml.ClientProxy";
+    public static final String  GUI_FACTORY     = "bspkrs.bspkrscore.fml.gui.ModGuiFactoryHandler";
 
-        try
-        {
-            InputStream stream = Reference.class.getClassLoader().getResourceAsStream("version.properties");
-            prop.load(stream);
-            stream.close();
-        }
-        catch (Exception e)
-        {
-            Throwables.propagate(e);
-        }
+    public static final String  FORGE_JSON_URL   = "@JSON_URL@";
 
-        MC_VERSION = prop.getProperty("version.minecraft");
-    }
-    public static final String  MODID        = "bspkrscore";
-    public static final String  NAME         = "bspkrsCore";
-    private static final String  MC_VERSION;
-    public static final String  PROXY_COMMON = "bspkrs.bspkrscore.fml.CommonProxy";
-    public static final String  PROXY_CLIENT = "bspkrs.bspkrscore.fml.ClientProxy";
-    public static final String  GUI_FACTORY  = "bspkrs.bspkrscore.fml.gui.ModGuiFactoryHandler";
-
-    public static final String FORGE_JSON_URL = "https://raw.githubusercontent.com/jco2641/bspkrsCore/master/forgeupdate.json";
-
-    public static Configuration config       = null;
+    public static Configuration config          = null;
 }

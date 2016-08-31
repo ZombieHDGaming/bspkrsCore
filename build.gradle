@@ -13,12 +13,10 @@ buildscript {
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
-        classpath 'com.matthewprenger:CurseGradle:1.0-SNAPSHOT'
     }
 }
 
 apply plugin: 'net.minecraftforge.gradle.forge'
-apply plugin: 'com.matthewprenger.cursegradle'
 
 compileJava.options.encoding = 'UTF-8'
 
@@ -30,35 +28,50 @@ minecraft {
     version = project.minecraft_version + '-' + project.forge_version  // grab latest forge
     mappings = project.mappings_version
     runDir = 'run'
+
+    //replaces in mod Reference class
+    replace '@MOD_ID', project.mod_id
+    replace '@MOD_NAME', project.mod_name
     replace '@MOD_VERSION@', project.mod_version
-    replace '@MINECRAFT_VERSION@', project.minecraft_version
+    replace '@JSON_URL@', project.forgeupdate_url
+
+    replaceIn 'Reference.java'
 }
 
 processResources {
-    // replace stuff in the files we want.
+    // replaces in mcmod.info
     from(sourceSets.main.resources.srcDirs) {
-        include '**/*.info'
-        include '**/*.properties'
+        include 'mcmod.info'
 
-        // replaces
         expand ([
             'mod_version': project.mod_version,
             'forge_version': project.forge_version,
             'forge_versionlimit': project.forge_versionlimit,
-            'minecraft_version': project.minecraft_version,
+            'minecraft_version': project.minecraft_version
         ])
     }
 
-    // copy everything else that we didn't do before
+    // copy everything else
     from(sourceSets.main.resources.srcDirs) {
-        exclude '**/*.info'
-        exclude '**/*.properties'
+        exclude 'mcmod.info'
     }
 }
 
-// change the name of my obfuscated jar
+task updateJson(type: Copy){
+    from('forgeupdate')
+    include('forgeupdate.json.template')
+    into('forgeupdate')
+    rename('forgeupdate.json.template','forgeupdate.json')
+    expand([
+            'mod_version': project.mod_version,
+            'minecraft_version': project.minecraft_version
+        ])
+}
+
+build.finalizedBy updateJson
+
 jar {
-    appendix = project.appendix
+    appendix = "universal"
 }
 
 task deobfJar(type: Jar) {
@@ -75,21 +88,6 @@ sourceJar {
 artifacts {
     archives deobfJar
     archives sourceJar
-}
-
-if (project.hasProperty('api_key_curse') && project.hasProperty('extra_curse_id')) {
-    tasks.curseforge.dependsOn signJars
-    curseforge {
-        apiKey = project.api_key_curse
-
-        project {
-            id = project.extra_curse_id
-            changelog = ''
-            releaseType = project.hasProperty('extra_curse_releasetype') ? project.extra_curse_releasetype : 'release'
-
-            addArtifact sourceJar
-        }
-    }
 }
 
 idea {
