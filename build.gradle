@@ -60,25 +60,30 @@ processResources {
 import groovy.json.JsonSlurper
 import groovy.json.JsonOutput
 
-task updateJson << {
+task updateJson {
     def fileName = new File('forgeupdate/forgeupdate.json')
     def fujson = new JsonSlurper().parseText(fileName.text)
 
-    //update update-URL
-    fujson['homepage'] = project.forgeupdate_url
+    inputs.file fileName
+    outputs.file fileName
 
-    //update promoted versions
-    def lateststr = project.minecraft_version + '-latest'
-    fujson['promos'][lateststr] = project.mod_version.toString()
-    def recomstr = project.minecraft_version + '-recommended'
-    fujson['promos'][recomstr] = project.mod_version.toString()
+    doLast {
+        //update update-URL
+        fujson['homepage'] = project.forgeupdate_url
+
+        //update promoted versions
+        def lateststr = project.minecraft_version + '-latest'
+        fujson['promos'][lateststr] = project.mod_version.toString()
+        def recomstr = project.minecraft_version + '-recommended'
+        fujson['promos'][recomstr] = project.mod_version.toString()
 
 //    //update version notes
 //    relnote = "Get this from git or something"
 //    fujson[project.minecraft_version][project.mod_version] = relnote
 
-    def jsOut = JsonOutput.toJson(fujson)
-    fileName.write(JsonOutput.prettyPrint(jsOut))
+        def jsOut = JsonOutput.toJson(fujson)
+        fileName.write(JsonOutput.prettyPrint(jsOut))
+    }
 }
 
 build.finalizedBy updateJson
