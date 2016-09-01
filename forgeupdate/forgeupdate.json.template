@@ -1,7 +1,0 @@
-{
-  "homepage": "https://github.com/jco2641/bspkrsCore/releases/latest",
-  "promos": {
-    "${minecraft_version}-latest": "${mod_version}",
-    "${minecraft_version}-recommended": "${mod_version}"
-  }
-}
