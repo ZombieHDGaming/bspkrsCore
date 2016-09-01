@@ -57,15 +57,28 @@ processResources {
     }
 }
 
-task updateJson(type: Copy){
-    from('forgeupdate')
-    include('forgeupdate.json.template')
-    into('forgeupdate')
-    rename('forgeupdate.json.template','forgeupdate.json')
-    expand([
-            'mod_version': project.mod_version,
-            'minecraft_version': project.minecraft_version
-        ])
+import groovy.json.JsonSlurper
+import groovy.json.JsonOutput
+
+task updateJson {
+    def fileName = new File('forgeupdate/forgeupdate.json')
+    def fujson = new JsonSlurper().parseText(fileName.text)
+
+    //update update-URL
+    fujson['homepage'] = project.forgeupdate_url
+
+    //update promoted versions
+    def lateststr = project.minecraft_version + '-latest'
+    fujson[lateststr] = project.mod_version.toString()
+    def recomstr = project.minecraft_version + '-recommended'
+    fujson[recomstr] = project.mod_version.toString()
+
+//    //update version notes
+//    relnote = "Get this from git or something"
+//    fujson[project.minecraft_version][project.mod_version] = relnote
+
+    fileName.write(JsonOutput.toJson(fujson))
+
 }
 
 build.finalizedBy updateJson
