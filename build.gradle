@@ -30,8 +30,8 @@ minecraft {
     runDir = 'run'
 
     //replaces in mod Reference class
-    replace '@MOD_ID', project.mod_id
-    replace '@MOD_NAME', project.mod_name
+    replace '@MOD_ID@', project.mod_id
+    replace '@MOD_NAME@', project.mod_name
     replace '@MOD_VERSION@', project.mod_version
     replace '@JSON_URL@', project.forgeupdate_url
 
@@ -89,18 +89,17 @@ task updateJson {
 build.finalizedBy updateJson
 
 jar {
-    appendix = "universal"
+    classifier = "universal"
 }
 
 task deobfJar(type: Jar) {
     from sourceSets.main.output
     from sourceSets.main.java
-    appendix = 'deobf'
+    classifier = 'deobf'
 }
 
 sourceJar {
-    appendix = 'src'
-    classifier = ''
+    classifier = 'src'
 }
 
 artifacts {
