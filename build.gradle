@@ -64,8 +64,10 @@ task updateJson {
     def fileName = new File('forgeupdate/forgeupdate.json')
     def fujson = new JsonSlurper().parseText(fileName.text)
 
-    inputs.file fileName
-    outputs.file fileName
+//    cannot both be the same name, or task is forever after up to date
+//    go with always regenerating instead
+//    inputs.file fileName
+//    outputs.file fileName
 
     doLast {
         //update update-URL
