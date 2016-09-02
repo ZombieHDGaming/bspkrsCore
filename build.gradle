@@ -1,3 +1,6 @@
+import groovy.json.JsonSlurper
+import groovy.json.JsonOutput
+
 buildscript {
     repositories {
         mavenCentral()
@@ -57,9 +60,6 @@ processResources {
     }
 }
 
-import groovy.json.JsonSlurper
-import groovy.json.JsonOutput
-
 task updateJson {
     def fileName = new File('forgeupdate/forgeupdate.json')
     def fujson = new JsonSlurper().parseText(fileName.text)
@@ -87,6 +87,14 @@ task updateJson {
 }
 
 build.finalizedBy updateJson
+
+uploadArchives {
+    repositories {
+        flatDir {
+            dirs "${projectDir}/../LocalRepos"
+        }
+    }
+}
 
 jar {
     classifier = "universal"
