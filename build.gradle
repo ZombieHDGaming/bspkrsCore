@@ -90,14 +90,6 @@ task updateJson {
 
 build.finalizedBy updateJson
 
-uploadArchives {
-    repositories {
-        flatDir {
-            dirs "${projectDir}/../LocalRepos"
-        }
-    }
-}
-
 jar {
     classifier = "universal"
 }
@@ -121,4 +113,14 @@ idea {
     module {
         inheritOutputDirs = true
     }
+}
+
+uploadArchives {
+    repositories {
+        flatDir {
+            dirs "${projectDir}/../LocalRepos"
+        }
+    }
+    dependsOn 'build'
+    mustRunAfter 'build'
 }
