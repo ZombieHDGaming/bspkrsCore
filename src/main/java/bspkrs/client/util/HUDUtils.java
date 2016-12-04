@@ -221,9 +221,9 @@ public final class HUDUtils
                 int count = 0;
 
                 if (itemStack.getMaxStackSize() > 1)
-                    count = HUDUtils.countInInventory(Minecraft.getMinecraft().thePlayer, itemStack.getItem(), itemStack.getItemDamage());
+                    count = HUDUtils.countInInventory(Minecraft.getMinecraft().player, itemStack.getItem(), itemStack.getItemDamage());
                 else if (itemStack.getItem().equals(Items.BOW))
-                    count = HUDUtils.countInInventory(Minecraft.getMinecraft().thePlayer, Items.ARROW);
+                    count = HUDUtils.countInInventory(Minecraft.getMinecraft().player, Items.ARROW);
 
                 if (count > 1)
                 {
@@ -266,9 +266,9 @@ public final class HUDUtils
     public static int countInInventory(EntityPlayer player, Item item, int md)
     {
         int count = 0;
-        for (int i = 0; i < player.inventory.mainInventory.length; i++)
-            if ((player.inventory.mainInventory[i] != null) && item.equals(player.inventory.mainInventory[i].getItem()) && ((md == -1) || (player.inventory.mainInventory[i].getMetadata() == md)))
-                count += player.inventory.mainInventory[i].stackSize;
+        for (int i = 0; i < player.inventory.mainInventory.size(); i++)
+            if ((player.inventory.mainInventory.get(i) != null) && item.equals(player.inventory.mainInventory.get(i).getItem()) && ((md == -1) || (player.inventory.mainInventory.get(i).getMetadata() == md)))
+                count += player.inventory.mainInventory.get(i).getCount();
         return count;
     }
 

@@ -532,11 +532,7 @@ public final class CommonUtils
         }
         catch (NoClassDefFoundError e)
         {
-//TODO: find an alternative static way to get a handle on MinecraftServer 
-// this is not a static reference anymore
-//            return MinecraftServer.getServer().getFile("").getAbsolutePath();
-// just throw it
-        	throw e;
+            return net.minecraftforge.fml.common.FMLCommonHandler.instance().getMinecraftServerInstance().getFile("").getAbsolutePath();
         }
     }
 
@@ -580,18 +576,18 @@ public final class CommonUtils
             distance = ((EntityPlayerMP) player).interactionManager.getBlockReachDistance();
         }
         Vec3d vector2 = vector1.addVector(pitchAdjustedSinYaw * distance, sinPitch * distance, pitchAdjustedCosYaw * distance);
-        return player.worldObj.rayTraceBlocks(vector1, vector2);
+        return player.world.rayTraceBlocks(vector1, vector2);
     }
 
     public static void spawnExplosionParticleAtEntity(Entity entity)
     {
         for (int i = 0; i < 20; ++i)
         {
-            double d0 = entity.worldObj.rand.nextGaussian() * 0.02D;
-            double d1 = entity.worldObj.rand.nextGaussian() * 0.02D;
-            double d2 = entity.worldObj.rand.nextGaussian() * 0.02D;
+            double d0 = entity.world.rand.nextGaussian() * 0.02D;
+            double d1 = entity.world.rand.nextGaussian() * 0.02D;
+            double d2 = entity.world.rand.nextGaussian() * 0.02D;
             double d3 = 10.0D;
-            entity.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, (entity.posX + (entity.worldObj.rand.nextFloat() * entity.width * 2.0F)) - entity.width - (d0 * d3), (entity.posY + (entity.worldObj.rand.nextFloat() * entity.height)) - (d1 * d3), (entity.posZ + (entity.worldObj.rand.nextFloat() * entity.width * 2.0F)) - entity.width - (d2 * d3), d0, d1, d2);
+            entity.world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, (entity.posX + (entity.world.rand.nextFloat() * entity.width * 2.0F)) - entity.width - (d0 * d3), (entity.posY + (entity.world.rand.nextFloat() * entity.height)) - (d1 * d3), (entity.posZ + (entity.world.rand.nextFloat() * entity.width * 2.0F)) - entity.width - (d2 * d3), d0, d1, d2);
         }
     }
 }
