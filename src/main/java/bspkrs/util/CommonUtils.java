@@ -25,6 +25,11 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.server.FMLServerHandler;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 
@@ -396,6 +401,7 @@ public final class CommonUtils
                 }
     }
 
+    @SideOnly(Side.CLIENT)
     public static boolean isGamePaused(Minecraft mc)
     {
         return (mc.currentScreen != null) && (mc.currentScreen.doesGuiPauseGame() || (mc.currentScreen instanceof GuiMainMenu));
@@ -513,26 +519,25 @@ public final class CommonUtils
 
     public static String getLogFileName()
     {
-        try
-        {
-            Minecraft.getMinecraft();
-            return "ForgeModLoader-client-0.log";
-        }
-        catch (Throwable e)
-        {
-            return "ForgeModLoader-server-0.log";
+        switch (FMLCommonHandler.instance().getEffectiveSide()) {
+            case CLIENT:
+                return "ForgeModLoader-client-0.log";
+            case SERVER:
+                return "ForgeModLoader-server-0.log";
+            default:
+                return null;
         }
     }
 
     public static String getMinecraftDir()
     {
-        try
-        {
-            return Minecraft.getMinecraft().mcDataDir.getAbsolutePath();
-        }
-        catch (NoClassDefFoundError e)
-        {
-            return net.minecraftforge.fml.common.FMLCommonHandler.instance().getMinecraftServerInstance().getFile("").getAbsolutePath();
+        switch (FMLCommonHandler.instance().getEffectiveSide()) {
+            case CLIENT:
+                return FMLClientHandler.instance().getClient().mcDataDir.getAbsolutePath();
+            case SERVER:
+                return FMLServerHandler.instance().getServer().getDataDirectory().getAbsolutePath();
+            default:
+                return null;
         }
     }
 
