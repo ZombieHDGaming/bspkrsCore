@@ -26,7 +26,7 @@ public class Reference
 
         MC_VERSION = prop.getProperty("version.minecraft");
     }
-    public static final String  MODID        = "bspkrsCore";
+    public static final String  MODID        = "bspkrscore";
     public static final String  NAME         = "bspkrsCore";
     public static final String  MC_VERSION;
     public static final String  MINECRAFT    = "minecraft";

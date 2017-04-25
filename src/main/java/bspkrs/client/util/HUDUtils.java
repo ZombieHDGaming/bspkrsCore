@@ -221,9 +221,9 @@ public final class HUDUtils
                 int count = 0;
 
                 if (itemStack.getMaxStackSize() > 1)
-                    count = HUDUtils.countInInventory(Minecraft.getMinecraft().thePlayer, itemStack.getItem(), itemStack.getItemDamage());
+                    count = HUDUtils.countInInventory(Minecraft.getMinecraft().player, itemStack.getItem(), itemStack.getItemDamage());
                 else if (itemStack.getItem().equals(Items.BOW))
-                    count = HUDUtils.countInInventory(Minecraft.getMinecraft().thePlayer, Items.ARROW);
+                    count = HUDUtils.countInInventory(Minecraft.getMinecraft().player, Items.ARROW);
 
                 if (count > 1)
                 {

@@ -217,7 +217,7 @@ public class EntityUtils
     {
         Random random = new Random();
         // Get a COPY dumbass!
-        Set entities = new TreeSet(EntityList.NAME_TO_CLASS.keySet());
+        Set entities = new TreeSet(EntityList.getEntityNameList());
 
         if (blacklist != null)
             entities.removeAll(blacklist);
@@ -230,7 +230,7 @@ public class EntityUtils
         do
         {
             id = random.nextInt(entStrings.length);
-            clazz = (Class) EntityList.NAME_TO_CLASS.get(entStrings[id]);
+            clazz = (Class) EntityList.getClassFromID(id);
         }
         while (!EntityLivingBase.class.isAssignableFrom(clazz)
                 && (++tries <= numberOfAttempts));
@@ -249,14 +249,14 @@ public class EntityUtils
                                         entry.getValue()), true));
             }
             else
-                return (EntityLivingBase) EntityList.createEntityByName(
+                return (EntityLivingBase) EntityList.createEntityByIDFromName(
                         "Chicken", world);
         }
 
         if (bspkrsCoreMod.instance.allowDebugOutput)
             BSLog.info(entStrings[id].toString());
 
-        return (EntityLivingBase) EntityList.createEntityByName(
-                (String) entStrings[id], world);
+        return (EntityLivingBase) EntityList.createEntityByID(
+                id, world);
     }
 }
