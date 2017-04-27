@@ -7,7 +7,7 @@
     "description": "bspkrsCore contains shared classes used by all mods released by bspkrs.",
     "urls": [
         { "type": "website", "url": "mcf:1114612" },
-        { "type": "source", "url": "https://github.com/bspkrs/bspkrsCore" }
+        { "type": "source", "url": "https://github.com/bspkrs/bspkrsCore" },
         { "type": "issues", "url": "https://github.com/bspkrs/bspkrsCore" }
     ],
     "license": "CC BY-NC-SA 3.0",
