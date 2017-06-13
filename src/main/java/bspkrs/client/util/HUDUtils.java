@@ -2,10 +2,10 @@ package bspkrs.client.util;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -170,7 +170,7 @@ public final class HUDUtils
         float var7 = 0.00390625F;
         float var8 = 0.00390625F;
         Tessellator tessellator = Tessellator.getInstance();
-        VertexBuffer worldRenderer = tessellator.getBuffer();
+        BufferBuilder worldRenderer = tessellator.getBuffer();
         worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
         worldRenderer.pos((x + 0), (y + height), zLevel).tex(((u + 0) * var7), ((v + height) * var8)).endVertex();
         worldRenderer.pos((x + width), (y + height), zLevel).tex(((u + width) * var7), ((v + height) * var8)).endVertex();
@@ -245,7 +245,7 @@ public final class HUDUtils
      */
     public static void renderQuad(Tessellator tessellator, int x, int y, int width, int height, int color)
     {
-        VertexBuffer worldRenderer = tessellator.getBuffer();
+        BufferBuilder worldRenderer = tessellator.getBuffer();
         worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
         int a = (color >> 24) & 0xFF;
         int r = (color >> 16) & 0xFF;
@@ -268,7 +268,7 @@ public final class HUDUtils
         int count = 0;
         for (int i = 0; i < player.inventory.mainInventory.size(); i++)
             if ((player.inventory.mainInventory.get(i) != null) && item.equals(player.inventory.mainInventory.get(i).getItem()) && ((md == -1) || (player.inventory.mainInventory.get(i).getMetadata() == md)))
-                count += player.inventory.mainInventory.get(i).getCount();
+                count += player.inventory.mainInventory.get(i).func_190916_E();
         return count;
     }
 

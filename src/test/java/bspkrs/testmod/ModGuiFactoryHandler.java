@@ -2,6 +2,7 @@ package bspkrs.testmod;
 
 import java.util.Set;
 
+import bspkrs.bspkrscore.fml.gui.GuiBSConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.fml.client.IModGuiFactory;
@@ -13,8 +14,18 @@ public class ModGuiFactoryHandler implements IModGuiFactory
     {   
         
     }
-    
-    @Override
+
+  @Override
+  public boolean hasConfigGui() {
+    return true;
+  }
+
+  @Override
+  public GuiScreen createConfigGui(GuiScreen parentScreen) {
+    return new GuiBSConfig(parentScreen);
+  }
+
+  @Override
     public Class<? extends GuiScreen> mainConfigGuiClass()
     {
         return GuiTestModConfig.class;
