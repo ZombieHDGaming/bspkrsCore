@@ -268,7 +268,7 @@ public final class HUDUtils
         int count = 0;
         for (int i = 0; i < player.inventory.mainInventory.size(); i++)
             if ((player.inventory.mainInventory.get(i) != null) && item.equals(player.inventory.mainInventory.get(i).getItem()) && ((md == -1) || (player.inventory.mainInventory.get(i).getMetadata() == md)))
-                count += player.inventory.mainInventory.get(i).func_190916_E();
+                count += player.inventory.mainInventory.get(i).getCount();
         return count;
     }
 
